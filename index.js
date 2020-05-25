@@ -1,5 +1,3 @@
-function mvp() {
-  return 'works';
-}
-
-module.exports = mvp;
+module.exports.register = (program) => {
+  program.command('dash', 'view a dashboard report of your meta projects');
+};
