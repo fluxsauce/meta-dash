@@ -1,0 +1,52 @@
+{
+  "name": "meta-dash",
+  "version": "1.0.0",
+  "description": "Dashboard for multi-project and systems managed with meta",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fluxsauce/meta-dash.git"
+  },
+  "keywords": [
+    "meta",
+    "git",
+    "dashboard",
+    "status",
+    "console"
+  ],
+  "author": "Jon Peck <jpeck@fluxsauce.com>",
+  "contributors": [],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fluxsauce/meta-dash/issues"
+  },
+  "homepage": "https://github.com/fluxsauce/meta-dash#readme",
+  "engines": {
+    "node": ">=8"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jest": "^23.13.1",
+    "jest": "^25.5.4",
+    "package-json-validator": "^0.6.3"
+  },
+  "eslintConfig": {
+    "env": {
+      "jest": true
+    },
+    "extends": ["airbnb-base", "plugin:jest/recommended"],
+    "plugins": ["jest"]
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+      }
+    }
+  }
+}
