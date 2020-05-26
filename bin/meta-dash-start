@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-function mvp() {
-  return 'works';
-}
+const metaLib = require('../lib/meta');
 
-module.exports = mvp;
+const meta = metaLib.get();
+
+console.log(meta);

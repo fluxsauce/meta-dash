@@ -6,6 +6,10 @@
   "scripts": {
     "test": "jest --coverage"
   },
+  "bin": {
+    "meta-dash": "./bin/meta-dash",
+    "meta-dash-start": "./bin/meta-dash-start"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fluxsauce/meta-dash.git"
