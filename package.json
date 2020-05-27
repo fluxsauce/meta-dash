@@ -32,7 +32,8 @@
     "node": ">=8"
   },
   "dependencies": {
-    "commander": "^5.1.0"
+    "commander": "^5.1.0",
+    "simple-git": "^2.5.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",

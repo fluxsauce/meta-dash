@@ -1,7 +1,15 @@
 #!/usr/bin/env node
 
+const git = require('simple-git/promise');
 const metaLib = require('../lib/meta');
 
 const meta = metaLib.get();
 
-console.log(meta);
+Object.keys(meta.projects).forEach((projectName) => {
+  git(projectName)
+    .status()
+    .then((status) => {
+      console.log(`${projectName} [${status.current}]`);
+      // console.log(status);
+    });
+});
