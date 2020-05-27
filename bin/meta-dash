@@ -1,11 +1,57 @@
 #!/usr/bin/env node
 
-const program = require('commander');
+const chalk = require('chalk');
+const git = require('simple-git/promise');
+const metaLib = require('../lib/meta');
 
-let loaded = false;
-if (!loaded) {
-  program
-    .command('start', 'start the dashboard')
-    .parse(process.argv);
-  loaded = true;
+const meta = metaLib.get();
+
+function format(projectName, status, masterAhead, remoteAhead) {
+  const statusColor = status.current !== 'master' ? 'red' : 'green';
+
+  let formatted = `${projectName} [${chalk[statusColor](status.current)}]`;
+
+  if (masterAhead) {
+    formatted += ` master +${chalk.magenta(masterAhead)}`;
+  }
+
+  if (remoteAhead) {
+    formatted += ` local +${chalk.redBright(remoteAhead)}`;
+  }
+
+  if (status.conflicted.length > 0) {
+    formatted += ` conflicted +${chalk.bgWhite(status.conflicted.length)}`;
+  }
+
+  if (status.created.length > 0) {
+    formatted += ` ${chalk.yellow('new')}`;
+  }
+
+  if (status.staged.length > 0) {
+    formatted += ` ${chalk.yellow('uncomitted')}`;
+  }
+
+  return formatted;
 }
+
+Object.keys(meta.projects)
+  .forEach((projectName) => {
+    let status;
+    git(projectName)
+      .status()
+      .then((gitStatus) => {
+        status = gitStatus;
+        return git(projectName)
+          .raw([
+            'rev-list',
+            '--left-right',
+            '--count',
+            `origin/master...${gitStatus.current}`,
+          ]);
+      })
+      .then((leftRightCount) => {
+        const lrcParsed = leftRightCount.trim().split('\t');
+        return format(projectName, status, parseInt(lrcParsed[0], 10), parseInt(lrcParsed[1], 10));
+      })
+      .then((formatted) => console.log(formatted));
+  });
